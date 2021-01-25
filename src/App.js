@@ -2,24 +2,22 @@ import React from "react";
 import Heading from "./components/Heading";
 import Todolist from "./components/Todolist";
 import "./index.css";
+import { nanoid } from "nanoid";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       input: "",
-      todos: [{ item: "", completed: false, index: 0 }],
+      todos: [{ item: "", completed: false, id: nanoid() }],
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.addTodo = this.addTodo.bind(this);
-    this.markComplete = this.markComplete.bind(this);
   }
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({
       input: e.target.value,
     });
-  }
-  addTodo(e) {
+  };
+  addTodo = (e) => {
     e.preventDefault();
     if (this.state.input === "") return;
     this.setState({
@@ -28,23 +26,30 @@ class App extends React.Component {
         {
           item: this.state.input,
           completed: false,
-          index: this.state.todos.length,
+          id: nanoid(),
         },
       ],
       input: "",
     });
-  }
-  markComplete(e, index) {
-    console.log(e, index);
+  };
+  markComplete = (e, id) => {
     this.setState({
-      todos: [...this.state.todos].map((todo) => {
-        if (todo.index === index) {
+      todos: this.state.todos.map((todo) => {
+        if (todo.id === id) {
           todo.completed = !todo.completed;
         }
         return todo;
       }),
     });
-  }
+  };
+
+  deleteTodo = (e, id) => {
+    e.preventDefault();
+
+    this.setState({
+      todos: [...this.state.todos.filter((todo) => todo.id !== id)],
+    });
+  };
 
   render() {
     return (
@@ -55,6 +60,7 @@ class App extends React.Component {
           addTodo={this.addTodo}
           state={this.state}
           markComplete={this.markComplete}
+          deleteTodo={this.deleteTodo}
         />
       </div>
     );

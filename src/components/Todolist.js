@@ -8,7 +8,7 @@ function Todolist(props) {
           type="text"
           value={props.state.input}
           onChange={props.inputValue}
-        />{" "}
+        />
         <span>
           <button type="submit" onClick={props.addTodo}>
             submit
@@ -19,15 +19,23 @@ function Todolist(props) {
             if (!todo.item) return "";
             return (
               <li key={index}>
-                {todo.item}{" "}
+                {todo.item}
                 <input
                   defaultChecked={todo.completed}
                   type="checkbox"
                   name="check"
                   onClick={(e) => {
-                    props.markComplete(e, todo.index);
+                    props.markComplete(e, todo.id);
                   }}
                 />
+
+                <button
+                  onClick={(e) => {
+                    props.deleteTodo(e, todo.id);
+                  }}
+                >
+                  delete
+                </button>
               </li>
             );
           })}
