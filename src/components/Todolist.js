@@ -1,25 +1,36 @@
 import React from "react";
 
 function Todolist(props) {
+  function getStyle(completeStatus) {
+    return {
+      textDecoration: completeStatus ? "line-through" : "none",
+      
+    };
+  }
+
   return (
     <div>
       <form>
-        <input
-          type="text"
-          value={props.state.input}
-          onChange={props.inputValue}
-        />
-        <span>
+        <div className="input-field"> 
+          <input
+            type="text"
+            value={props.state.input}
+            onChange={props.inputValue}
+            
+          />
           <button type="submit" onClick={props.addTodo}>
-            submit
+            ➕️
           </button>
-        </span>
+        </div >
+       
+
         <ul>
           {props.state.todos.map((todo, index) => {
             if (!todo.item) return "";
             return (
-              <li key={index}>
+              <li key={index} style={getStyle(todo.completed)}>
                 {todo.item}
+                <div className='icons'>
                 <input
                   defaultChecked={todo.completed}
                   type="checkbox"
@@ -28,14 +39,22 @@ function Todolist(props) {
                     props.markComplete(e, todo.id);
                   }}
                 />
-
+                
                 <button
                   onClick={(e) => {
                     props.deleteTodo(e, todo.id);
                   }}
                 >
-                  delete
+                  🚮️
+                </button>{" "}
+                <button
+                  onClick={(e) => {
+                    props.editTodo(e, todo.id);
+                  }}
+                >
+                  ✏️
                 </button>
+                </div>
               </li>
             );
           })}
@@ -44,5 +63,6 @@ function Todolist(props) {
     </div>
   );
 }
+
 
 export default Todolist;

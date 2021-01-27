@@ -13,13 +13,34 @@ body {
   text-align: center;
 }
 
-input[type="text"] {
-  margin-left: 2.2rem;
+.input-field {
+  width: 100%;
+  display: flex;
+}
+
+.input-field input {
+  display: block;
+  width: 64%;
+  margin-left: 8.5rem;
+  padding: 0.7rem;
+  outline: none;
 }
 
 li {
+  display: flex;
+  justify-content: space-between;
   list-style: none;
-  padding: 1rem;
+  padding: 1.2rem;
   border: 1px solid gray;
   margin-bottom: 1rem;
+  width: 70%;
+  margin: 0 auto 1rem;
+  background-color: rgb(239, 247, 242);
+}
+
+.icons {
+  width: 8rem;
+  display: flex;
+  justify-content: space-around;
+  text-decoration: none;
 }

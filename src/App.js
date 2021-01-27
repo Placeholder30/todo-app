@@ -19,7 +19,7 @@ class App extends React.Component {
   };
   addTodo = (e) => {
     e.preventDefault();
-    if (this.state.input === "") return;
+    if (this.state.input === "" || this.state.input.trim().length === 0) return;
     this.setState({
       todos: [
         ...this.state.todos,
@@ -51,6 +51,11 @@ class App extends React.Component {
     });
   };
 
+  editTodo = (e, id) => {
+    e.preventDefault();
+    console.log(id);
+  };
+
   render() {
     return (
       <div className="container">
@@ -61,6 +66,7 @@ class App extends React.Component {
           state={this.state}
           markComplete={this.markComplete}
           deleteTodo={this.deleteTodo}
+          editTodo={this.editTodo}
         />
       </div>
     );
